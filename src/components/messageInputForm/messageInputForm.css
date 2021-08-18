@@ -1,0 +1,40 @@
+.messageInputForm {
+    border: 1px solid firebrick;
+    border-radius: 5px;
+    min-width: 50%;
+    padding: 10px;
+    margin: 5px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.messageInput {
+    min-width: 80%;
+    padding: 10px;
+    border: 1px solid fuchsia;
+    border-radius: 5px;
+}
+
+.submitButton {
+    min-width: 80px;
+    box-sizing: border-box;    
+    border: 1px solid fuchsia;
+    border-radius: 5px;
+    background-color: white;
+    text-decoration: none;
+    color: black;
+    transition-property: color, background-color, box-shadow;
+    transition-duration: 600ms;
+}
+
+.submitButton:hover {
+    background-color: slategrey;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: -5px -5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+}
+
+.submitButton:active {    
+    transform: scale(0.95);
+    box-shadow: 5px 5px 5px -5px rgba(34, 60, 80, 0.6) inset;
+}
