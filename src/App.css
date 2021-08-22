@@ -6,3 +6,7 @@
   justify-content: center;
   background-color: cornflowerblue;
 }
+
+.grid-wrapper {
+  max-width: 75%;
+}
