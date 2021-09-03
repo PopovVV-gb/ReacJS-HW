@@ -3,6 +3,7 @@ import faker from 'faker'
 import { createTheme } from "@material-ui/core/styles";
 import Chats from './chats/chats';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const theme = createTheme({
   palette: {
@@ -60,8 +61,9 @@ function ChatsPage(props) {
     )
   }
 
+  const username = useSelector((state) => state.profile.name);
   useEffect(() => {
-    if (messageList.length !== 0 && messageList[messageList.length-1].author === 'user1') {
+    if (messageList.length !== 0 && messageList[messageList.length-1].author === username) {
       const timeoutID = setTimeout(
         () => updateMessagelist(chatList[chatIndex].name, faker.lorem.words(20)),
         Math.random()*2000

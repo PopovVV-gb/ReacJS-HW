@@ -1,8 +1,10 @@
 import './message.css';
+import { useSelector } from "react-redux"
 
 function Message(props) {
+    const { name } = useSelector((state) => state.profile);
     let messageStyle;
-    if (props.message.author === 'user1') {
+    if (props.message.author === name) {
         messageStyle = 'message-author'
     } else {
         messageStyle = 'message-other'

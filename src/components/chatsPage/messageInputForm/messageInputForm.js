@@ -1,14 +1,16 @@
 import { useState, useRef, useEffect } from 'react';
 import './messageInputForm.css';
 import { TextField, Button, Icon, useTheme } from '@material-ui/core';
+import { useSelector } from "react-redux"
 
 function MessageInputForm(props) {
     const [value, setValue] = useState('');
     const handleChange = (event) => {
         setValue(event.target.value);
       }
+    const username = useSelector((state) => state.profile.name);
     const submitMessage = () => {
-        props.addMessage('user1', value);
+        props.addMessage(username, value);
         setValue('');
     }
     const inputRef = useRef(null);
