@@ -1,16 +1,19 @@
 import { useState, useRef, useEffect } from 'react';
 import './messageInputForm.css';
 import { TextField, Button, Icon, useTheme } from '@material-ui/core';
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { createAddMessageAction } from "../../../store/messages/actions"
+import { getProfile } from '../../../store/profile/selectors'
 
 function MessageInputForm(props) {
     const [value, setValue] = useState('');
     const handleChange = (event) => {
         setValue(event.target.value);
       }
-    const username = useSelector((state) => state.profile.name);
+    const username = useSelector(getProfile()).name;
+    const dispatch = useDispatch();
     const submitMessage = () => {
-        props.addMessage(username, value);
+        dispatch(createAddMessageAction({chatId: props.chatId, author: username, text: value}));
         setValue('');
     }
     const inputRef = useRef(null);

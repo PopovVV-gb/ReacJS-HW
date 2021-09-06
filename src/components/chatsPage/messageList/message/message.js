@@ -1,8 +1,9 @@
 import './message.css';
 import { useSelector } from "react-redux"
+import { getProfile } from '../../../../store/profile/selectors'
 
 function Message(props) {
-    const { name } = useSelector((state) => state.profile);
+    const { name } = useSelector(getProfile());
     let messageStyle;
     if (props.message.author === name) {
         messageStyle = 'message-author'

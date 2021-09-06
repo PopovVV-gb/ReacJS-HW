@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux"
 import './profile.css'
 import { useState } from "react";
 import { TextField, Grid } from '@material-ui/core';
+import { getProfile } from '../../store/profile/selectors'
  
 function Profile(props) {
     const theme = useTheme();
     const [enableChange, setEnableChange] = useState(false);
-    const { name, isActive } = useSelector((state) => state.profile);
+    const { name, isActive } = useSelector(getProfile());
     const [userName, setUserName] = useState(name);
     const [profileActive, setProfileActive] = useState(isActive)
     const dispatch = useDispatch(); 

@@ -5,6 +5,8 @@
   align-items: center;
   justify-content: center;
   background-color: cornflowerblue;
+  margin: 20px 0;
+  padding: 10px
 }
 
 .grid-wrapper {

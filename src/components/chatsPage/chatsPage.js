@@ -1,9 +1,13 @@
-import { useState, useEffect } from 'react';
+import {useEffect } from 'react';
 import faker from 'faker'
 import { createTheme } from "@material-ui/core/styles";
 import Chats from './chats/chats';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux"
+import { createAddMessageAction, createRemoveMessagesAction } from "../../store/messages/actions"
+import { getMessages } from '../../store/messages/selectors';
+import { createRemoveChatAction} from '../../store/chats/actions'
+import { getProfile } from '../../store/profile/selectors'
 
 const theme = createTheme({
   palette: {
@@ -16,19 +20,8 @@ const theme = createTheme({
   },
 });
 
-const generateChat = () => {
-  return {
-    id: Math.round(Math.random()*1000),
-    avatar: faker.image.avatar(),
-    name: faker.name.lastName(),
-    messages: [],
-  }
-}
-
-const generatedChatList = Array.from({length: 10}).map(() => (generateChat()));
-
 function ChatsPage(props) {
-  const [chatList, setChatList] = useState(generatedChatList);
+  const chatList = useSelector((state) => state.chats);
   const getChatByID = (id) => {
     for (let i = 0; i<chatList.length; i++) {
       if (chatList[i].id === Number(id)) return i
@@ -36,57 +29,41 @@ function ChatsPage(props) {
   }
   const params = useParams();
   const chatIndex = getChatByID(params.chatId);
-  let messages = [];
   let chatSelected = false;
   if (chatIndex !== undefined) {
-    messages = chatList[chatIndex].messages;
     chatSelected = true;
   }
-  const [messageList, setMessageList] = useState(messages);
-  const updateMessagelist = (author, text) => {
-    setMessageList((prevMessageList) => prevMessageList.concat({author, text}));
-    let updatedChatList = chatList;
-    updatedChatList[chatIndex].messages.push({author, text})
-    setChatList(updatedChatList)
-  }
+  const messageList = useSelector(getMessages(params.chatId))
+  const dispatch = useDispatch();
 
-  const deleteChat = () => {
-    if (window.confirm(`Вы действительно хотите удалить чат ${chatList[chatIndex].name}?`)) {
-      setChatList(chatList.filter((item, index) => {return index !== chatIndex}))
-    }
-  }
-
-  const addChat = () => {
-    setChatList((prevChatList) => prevChatList.concat(generateChat())
-    )
-  }
-
-  const username = useSelector((state) => state.profile.name);
+  const username = useSelector(getProfile()).name;
   useEffect(() => {
     if (messageList.length !== 0 && messageList[messageList.length-1].author === username) {
       const timeoutID = setTimeout(
-        () => updateMessagelist(chatList[chatIndex].name, faker.lorem.words(20)),
+        () => dispatch(createAddMessageAction({
+          chatId: params.chatId, 
+          author: chatList[chatIndex].name, 
+          text: faker.lorem.words(20)
+        })),
         Math.random()*2000
       )
       return () => clearTimeout(timeoutID)
     }
   }, [messageList]);
 
-  useEffect(() => {
-    if (chatIndex !== undefined) {      
-      setMessageList(chatList[chatIndex].messages)
-    } else setMessageList([])
-  }, [chatIndex])
+  const deleteChat = () => {
+    if (window.confirm(`Вы действительно хотите удалить чат ${chatList[chatIndex].name}?`)) {
+      dispatch(createRemoveChatAction(params.chatId))
+      dispatch(createRemoveMessagesAction(params.chatId))
+    }
+  }
 
   return (
     <Chats 
       theme={theme}
-      chatList={chatList}
-      messageList={messageList}
-      updateMessagelist={updateMessagelist}
+      chatId = {params.chatId}
       chatSelected = {chatSelected}
       deleteChat = {deleteChat}
-      addChat = {addChat}
     >
     </Chats>
   );

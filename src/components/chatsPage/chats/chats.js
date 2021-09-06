@@ -1,6 +1,7 @@
 import {Paper, Grid, List, Button } from '@material-ui/core/';
 import { ThemeProvider } from "@material-ui/core/styles";
 import './chats.css';
+import { Link } from 'react-router-dom';
 import MessageList from '../messageList/messageList';
 import MessageInputForm from '../messageInputForm/messageInputForm'
 import ChatList from '../chatList/chatList';
@@ -13,8 +14,9 @@ function Chats(props) {
           <Grid item xs={6}>
             <Button              
               variant="contained"
-              color="secondary"              
-              onClick={props.addChat}
+              color="secondary"    
+              component = {Link}
+              to = '/addchat'
             >
             Добавить новый чат
             </Button>
@@ -32,18 +34,18 @@ function Chats(props) {
           <Grid item xs={3}>
             <Paper>
               <List>
-                <ChatList chatList={props.chatList}></ChatList>
+                <ChatList ></ChatList>
               </List>
             </Paper>
           </Grid>
           <Grid item xs={9}>
             <Paper>            
-              <MessageList messages={props.messageList} />
+              <MessageList chatId={props.chatId} />
             </Paper>
           </Grid>
           <Grid item xs={3}></Grid>
           <Grid item xs={9}>          
-            <MessageInputForm addMessage={props.updateMessagelist} chatSelected={props.chatSelected}/>
+            <MessageInputForm chatId={props.chatId} chatSelected={props.chatSelected}/>
           </Grid>
         </Grid>
       </div>
