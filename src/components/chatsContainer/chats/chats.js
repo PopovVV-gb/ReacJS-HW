@@ -1,14 +1,28 @@
 import {Paper, Grid, List, Button } from '@material-ui/core/';
-import { ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 import './chats.css';
 import { Link } from 'react-router-dom';
 import MessageList from '../messageList/messageList';
-import MessageInputForm from '../messageInputForm/messageInputForm'
+import MessageInputFormContainer from '../messageInputFormContainer/messageInputFormContainer'
 import ChatList from '../chatList/chatList';
+import { ChatSelectedContext } from '../chatsContainer'
+import { useContext } from 'react';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#0084FF",
+    },
+    secondary: {
+      main: "#FF5100",
+    },
+  },
+});
 
 function Chats(props) {
+  const chatSelected = useContext(ChatSelectedContext)
   return (
-    <ThemeProvider theme={props.theme}>
+    <ThemeProvider theme={theme}>
       <div className="chats">
         <Grid className="grid-wrapper" container spacing = {3}>
           <Grid item xs={6}>
@@ -25,7 +39,7 @@ function Chats(props) {
           <Button              
               variant="contained"
               color="secondary"
-              disabled={!props.chatSelected}
+              disabled={!chatSelected}
               onClick={props.deleteChat}
             >
             Удалить текущий чат
@@ -45,7 +59,7 @@ function Chats(props) {
           </Grid>
           <Grid item xs={3}></Grid>
           <Grid item xs={9}>          
-            <MessageInputForm chatId={props.chatId} chatSelected={props.chatSelected}/>
+            <MessageInputFormContainer chatId={props.chatId} />
           </Grid>
         </Grid>
       </div>

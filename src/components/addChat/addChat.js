@@ -1,8 +1,8 @@
-import { TextField, Button, useTheme, Grid } from '@material-ui/core';
+import { TextField, Button, Grid } from '@material-ui/core';
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from "react-redux"
 import { createAddChatAction } from "../../store/chats/actions"
-import ChatList from '../chatsPage/chatList/chatList'
+import ChatList from '../chatsContainer/chatList/chatList'
 import faker from 'faker'
 import './addChat.css'
 

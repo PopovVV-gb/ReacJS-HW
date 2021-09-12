@@ -1,7 +1,11 @@
 export const getChatById = (chatId) => (state)=> {
-    return state.chats.filter((item) => (item.id === chatId))
+    let res = state.chats.filter((item) => (item.id === Number(chatId)));
+    if (res.length === 0) res = [{id: false, name: false}];
+    return res
 }
 
 export const getChatByName = (name) => (state)=> {
-    return state.chats.filter((item) => (item.name === name))
+    let res = state.chats.filter((item) => (item.name === name));
+    if (res.length === 0) res = [{id: false, name: false}];
+    return res
 }
