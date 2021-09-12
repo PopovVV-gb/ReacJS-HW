@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import Profile from "./components/profile/profile";
 import ChatsPage from "./components/chatsContainer/chatsContainer"
 import Main from './components/main/main';
+import { CatsList } from './components/fatCats/fatCats';
 import store from './store';
 import { persistor } from './store';
 import AddChat from './components/addChat/addChat';
@@ -18,16 +19,22 @@ function App(props) {
             <BrowserRouter>
                 <ul className="linkList">
                     <li className="linkItem">
-                        <Link to="/profile">profile</Link>
+                        <Link to="/cats">толстые котики</Link>
                     </li>
                     <li className="linkItem">
-                        <Link to="/chats">chats</Link>
+                        <Link to="/profile">профиль</Link>
                     </li>
                     <li className="linkItem">
-                        <Link to="/">home</Link>
+                        <Link to="/chats">чаты</Link>
+                    </li>
+                    <li className="linkItem">
+                        <Link to="/">главная</Link>
                     </li>
                 </ul>
                 <Switch>
+                    <Route path='/cats'>
+                        <CatsList></CatsList>
+                    </Route>    
                     <Route path='/profile'>
                         <Profile></Profile>
                     </Route>
