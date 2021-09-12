@@ -5,9 +5,23 @@ const initialState = []
 export const messagesReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MESSAGE:
-            return [...state].concat(action.payload)
+            const newMessage = {
+                author:action.payload.author, 
+                text: action.payload.text
+            }
+            if (action.payload.chatId in state) {
+                return {
+                    ...state,
+                    [action.payload.chatId]: state[action.payload.chatId].concat(newMessage)
+                }
+            } else return {
+                ...state,
+                [action.payload.chatId]: [newMessage]
+            }
         case REMOVE_MESSAGES:
-            return [...state].filter(item => item.chatId !== action.payload)
+            const newMessages = {...state}
+            delete newMessages[action.payload]
+            return newMessages
         default:
             return state;
     }

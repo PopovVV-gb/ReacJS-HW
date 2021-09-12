@@ -1,3 +1,8 @@
-export const getMessages = (chatId) => (state) => {
-    return state.messages.filter((item) => (item.chatId === chatId))
+export const getMessagesByChatId = (chatId) => (state) => {
+    if (chatId in state.messages) {
+        return state.messages[chatId];
+    }
+    else {
+        return []
+    }
 }
