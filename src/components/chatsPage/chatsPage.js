@@ -21,6 +21,7 @@ const theme = createTheme({
 });
 
 function ChatsPage(props) {
+
   const chatList = useSelector((state) => state.chats);
   const getChatByID = (id) => {
     for (let i = 0; i<chatList.length; i++) {

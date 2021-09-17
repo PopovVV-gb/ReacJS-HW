@@ -1,12 +1,12 @@
-import { ADD_MESSAGE, REMOVE_MESSAGES } from './actions'
+import { ADD_MESSAGE, REMOVE_MESSAGES, SET_MESSAGES_BY_CHAT_ID } from './actions'
 
-const initialState = []
+const initialState = {}
 
 export const messagesReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MESSAGE:
             const newMessage = {
-                author:action.payload.author, 
+                author: action.payload.author, 
                 text: action.payload.text
             }
             if (action.payload.chatId in state) {
@@ -22,6 +22,11 @@ export const messagesReducer = (state = initialState, action) => {
             const newMessages = {...state}
             delete newMessages[action.payload]
             return newMessages
+        case SET_MESSAGES_BY_CHAT_ID:
+            return { 
+                ...state,
+                [action.payload.chatId]: action.payload.messages
+            }
         default:
             return state;
     }

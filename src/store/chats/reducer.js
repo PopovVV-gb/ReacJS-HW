@@ -1,4 +1,4 @@
-import { ADD_CHAT, REMOVE_CHAT, GET_CHAT} from './actions'
+import { ADD_CHAT, REMOVE_CHAT, GET_CHAT, SET_CHATS} from './actions'
 import faker from 'faker'
 
 const generateChat = () => {
@@ -27,6 +27,16 @@ export const chatsReducer = (state = initialState, action) => {
             })
         case REMOVE_CHAT:
             return [...state].filter((item) => (item.id !== Number(action.payload)))
+        case SET_CHATS:
+            let chatExists = false;
+            state.forEach((value) => {
+                if(value.id === action.payload.id) {
+                    chatExists = true
+                };
+            })
+            if (!chatExists) {
+                return [...state, action.payload]
+            } else return state
         case GET_CHAT:
             return state
         default:
