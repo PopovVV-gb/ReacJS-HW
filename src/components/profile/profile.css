@@ -1,0 +1,13 @@
+.profile {
+    width: 75%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0
+}
+
+.cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

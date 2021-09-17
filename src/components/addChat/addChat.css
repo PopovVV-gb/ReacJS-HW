@@ -1,0 +1,9 @@
+.wrapper {
+    width:75%;
+    margin: 0 auto
+}
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
