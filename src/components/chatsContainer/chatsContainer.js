@@ -34,6 +34,7 @@ function ChatsPage(props) {
       <Chats 
         chatId = {params.chatId}
         deleteChat = {deleteChat}
+        chatSelected = {chatSelected}
       >
       </Chats>
     </ChatSelectedContext.Provider>

@@ -59,7 +59,7 @@ function Chats(props) {
           </Grid>
           <Grid item xs={3}></Grid>
           <Grid item xs={9}>          
-            <MessageInputFormContainer chatId={props.chatId} />
+            <MessageInputFormContainer chatSelected = {props.chatSelected} chatId={props.chatId} />
           </Grid>
         </Grid>
       </div>

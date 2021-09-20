@@ -7,6 +7,11 @@ import faker from 'faker'
 import './addChat.css'
 import { getMaxChatId } from '../../store/chats/selectors';
 
+export const addChatTestIds = {
+    add: 'addChat-add',
+    textField: 'addChat-textField'
+}
+
 function AddChat(props) {
     const dispatch = useDispatch();
     const [value, setValue] = useState('')
@@ -38,6 +43,7 @@ function AddChat(props) {
                         onChange = {handleChange}
                         value={value}
                         inputRef={inputRef}
+                        inputProps = {{"data-testid":addChatTestIds.textField}}
                     >
                     </TextField>
                 </Grid>
@@ -47,6 +53,7 @@ function AddChat(props) {
                         color="secondary"
                         onClick = {addNewChat}
                         disabled = {value === ''}
+                        data-testid = {addChatTestIds.add}
                     >
                     Создать чат
                     </Button>

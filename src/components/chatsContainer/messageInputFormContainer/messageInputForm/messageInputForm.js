@@ -3,8 +3,13 @@ import './messageInputForm.css';
 import { TextField, Button, Icon, useTheme } from '@material-ui/core';
 import { ChatSelectedContext } from '../../chatsContainer'
 
+export const messageInputFormTestIds = {
+    submit: 'messageInputForm-submit',
+    textField: 'messageInputForm-textField'
+}
+
 function MessageInputForm(props) {
-    const chatSelected = useContext(ChatSelectedContext)
+    const chatSelected = props.chatSelected
     const [value, setValue] = useState('');
     const handleChange = (event) => {
         setValue(event.target.value);
@@ -36,7 +41,9 @@ function MessageInputForm(props) {
                 variant="outlined" 
                 value={value} 
                 onChange={handleChange}
-                inputRef={inputRef}>
+                inputRef={inputRef}
+                inputProps={{"data-testid":messageInputFormTestIds.textField}}              
+                >
             </TextField>
             <Button
                 style={{
@@ -47,7 +54,8 @@ function MessageInputForm(props) {
                 color="primary"
                 endIcon={<Icon>send</Icon>}
                 onClick={submitMessage}
-                disabled={!chatSelected}
+                disabled={!chatSelected}                
+                data-testid={messageInputFormTestIds.submit}
             >
             </Button>
         </div>
