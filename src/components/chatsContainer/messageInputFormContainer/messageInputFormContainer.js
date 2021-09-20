@@ -20,7 +20,8 @@ function MessageInputFormContainer(props) {
         }, [props.chatId, dispatch]);
     return (
         <MessageInputForm
-            submitMessage = {submitMessage}          
+            submitMessage = {submitMessage}
+            chatSelected = {props.chatSelected}      
         >
         </MessageInputForm>
     )
